@@ -26,32 +26,36 @@ from GameState import *
 # 	for row in maze:
 # 		for j in row:
 # 			print j,
-    # 		print
+# 		print
 
 def testGamePlay(maze):
-    #root = Tk ()
-    #grid = MazeUI (root)
-    i = 0
-    while( i < 5):
-        r, c =  input("Please input the cell you want to uncover by space seperated integers.\n").split()
-        maze[int(r)][int(c)] = 'U'
-        printBoard(maze)
+	#root = Tk ()
+	#grid = MazeUI (root)
+	i = 0
+	while( i < 5):
+		r, c = input('Please input the cell you want to uncover by space seperated integers.\n').split()
+		maze[int(r)][int(c)] = 'U'
+		printBoard(maze)
 
 def main ():
-    PROBABILITY = 0.2
-    rows, cols = input("Please input the demensions of the board by a space seperated integers.\n").split()
-    maze = GenerateBoardUI()
-    mine_board = maze.gen_Mine_Board(rows, cols, PROBABILITY)
-    user_board = maze.gen_user_Board(rows, cols)
-    print("Board filled with mines")
-    maze.printBoard(mine_board)
-    print("User_board")
-    maze.printBoard(user_board)
-    r, c = input("Please input the cell you want to uncover by space seperated integers.\n").split()
-    sweep = Minesweep()
-    sweep.querry_cell(user_board, mine_board, r, c)
-    maze.printBoard(user_board)
-    #testGamePlay(maze)
+	#PROBABILITY = 0.2
+	rows, cols, prob = input('Please input the number of rows, cols, and probability(decimal) of a cell exsisting.\n').split()
+	print(prob)
+	maze = GenerateBoardUI()
+	sweep = Minesweep()
+	mine_board = maze.populate_mine_board(rows, cols, prob)
+	user_board = maze.gen_user_Board(rows, cols)
+	print('Board filled with mines')
+	maze.printBoard(mine_board)
+	print('User board(A = Available)')
+	#maze.printBoard(user_board)
+	#r, c = raw_input('Please input the cell you want to uncover by space seperated integers.\n').split()
+	#maze.printBoard(user_board)
+	#testGamePlay(maze)
+	sweep.gen_open_cells(user_board, mine_board)
+	maze.printBoard(user_board)
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+	main ()
+
+
